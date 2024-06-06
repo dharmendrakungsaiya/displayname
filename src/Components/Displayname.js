@@ -20,8 +20,9 @@ const Displayname = () => {
             setErrorMessage("!Please fill out this field");
         } else {
             setErrorMessage("");
-            setFullName(`${firstName} ${lastName}`)
-            console.log("Form Submit");
+            const fullName = `${firstName} ${lastName}`;
+            setFullName(fullName);
+            console.log("Form Submit", fullName);
         }
        }
 
