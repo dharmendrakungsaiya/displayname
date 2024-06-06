@@ -3,8 +3,9 @@ import React, { useState } from "react";
 const Displayname = () => {
     const[firstName, setFirstName] = useState("");
     const[lastName, setLastName] = useState("");
-    const[errorMessage, setErrorMessage] = useState("");
     const[fullName, setFullName] = useState("")
+    const [firstNameError, setFirstNameError] = useState("");
+    const [lastNameError, setLastNameError] = useState("");
 
     const handleFname = (e) => {
         setFirstName(e.target.value);
@@ -16,29 +17,41 @@ const Displayname = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(firstName === "" || lastName === ""){
-            setErrorMessage("!Please fill out this field");
+        if (firstName === "") {
+            setFirstNameError("!Please fill out this field");
         } else {
-            setErrorMessage("");
-            const fullName = `${firstName} ${lastName}`;
-            setFullName(fullName);
-            console.log("Form Submit", fullName);
+            setFirstNameError("");
         }
-       }
+
+        if (lastName === "") {
+            setLastNameError("!Please fill out this field");
+        } else {
+            setLastNameError("");
+        }
+
+        if (firstName !== "" && lastName !== "") {
+            setFullName(`${firstName} ${lastName}`);
+        }
+    };
 
     return(
         <div>
             <h1>Full Name Display</h1>
             <form onSubmit={handleSubmit}>
-                <label>First Name
+                <label>First Name :
                     <input type="text" name="name" value={firstName} onChange={handleFname} />
+                    {firstNameError && (
+                        <span style={{ color: "red" }}>{firstNameError}</span>
+                    )}
                 </label>
                 <br/>
-                <label>Last Name
+                <label>Last Name :
                     <input type="text" name="name" value={lastName} onChange={handleLname} />
+                    {lastNameError && (
+                        <span style={{ color: "red" }}>{lastNameError}</span>
+                    )}
                 </label>
                 <br/>
-                <p>{errorMessage}</p>
                 <button type="submit">Submit</button>
                 {fullName && <p>Full Name: {fullName}</p>}
             </form>
@@ -47,3 +60,6 @@ const Displayname = () => {
 }
 
 export default Displayname;
+
+
+
